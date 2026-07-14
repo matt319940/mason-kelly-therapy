@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Mason Kelly, LCSW">
+  <rect width="512" height="512" rx="96" fill="#4a6b5d"/>
+  <path d="M256 132c-44 36-74 70-74 118 0 44 33 74 74 74s74-30 74-74c0-48-30-82-74-118z" fill="#eaf0ec" opacity="0.18"/>
+  <text x="256" y="300" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="180" font-weight="600" fill="#ffffff">MK</text>
+  <text x="256" y="390" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="44" letter-spacing="4" fill="#cdddd4">LCSW</text>
+</svg>
