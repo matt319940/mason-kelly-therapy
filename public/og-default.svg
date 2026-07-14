@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Mason L. Kelly, LCSW — Faith-Centered Christian Counseling">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4a6b5d"/>
+      <stop offset="1" stop-color="#385246"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1040" cy="120" r="280" fill="#ffffff" opacity="0.05"/>
+  <circle cx="120" cy="560" r="220" fill="#c0784f" opacity="0.10"/>
+  <text x="90" y="240" font-family="Georgia, 'Times New Roman', serif" font-size="40" letter-spacing="3" fill="#cdddd4">FAITH-CENTERED CHRISTIAN COUNSELING</text>
+  <text x="86" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="600" fill="#ffffff">Mason L. Kelly, MSW, LCSW</text>
+  <text x="90" y="410" font-family="'Segoe UI', system-ui, sans-serif" font-size="40" fill="#e3ece6">Bible-based therapy, online across Illinois</text>
+  <text x="90" y="540" font-family="'Segoe UI', system-ui, sans-serif" font-size="30" fill="#bcd0c6">Trauma · Addiction · Anxiety · Relationships · Detransition Support</text>
+</svg>

@@ -1,0 +1,92 @@
+// ---------------------------------------------------------------------------
+// Typography — Lora (headings) + Open Sans (body)
+// ---------------------------------------------------------------------------
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  color: var(--c-text);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2rem, 1.4rem + 2.6vw, var(--fs-5xl));
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: clamp(1.6rem, 1.25rem + 1.5vw, var(--fs-3xl));
+}
+h3 {
+  font-size: var(--fs-xl);
+  line-height: var(--lh-snug);
+}
+h4 {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-brand);
+}
+
+.lead {
+  font-size: var(--fs-lg);
+  line-height: var(--lh-body);
+  color: var(--c-text-muted);
+}
+
+blockquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-snug);
+  color: var(--c-brand-dark);
+  border-left: 3px solid var(--c-brand);
+  padding-left: var(--sp-5);
+  margin-block: var(--sp-5);
+}
+blockquote cite {
+  display: block;
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-style: normal;
+  color: var(--c-text-muted);
+}
+
+// --- Prose (blog posts, long-form content) --------------------------------
+.prose {
+  max-width: 68ch;
+}
+.prose > * + * {
+  margin-top: var(--sp-5);
+}
+.prose h2 {
+  margin-top: var(--sp-7);
+}
+.prose h3 {
+  margin-top: var(--sp-6);
+}
+.prose p,
+.prose li {
+  font-size: var(--fs-lg);
+  line-height: var(--lh-body);
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+}
+.prose li + li {
+  margin-top: var(--sp-2);
+}
+.prose a {
+  font-weight: var(--fw-semibold);
+}

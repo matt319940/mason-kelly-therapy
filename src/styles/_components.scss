@@ -1,0 +1,238 @@
+// ---------------------------------------------------------------------------
+// Shared UI primitives (global, so they apply inside emulated-encapsulation
+// component templates). Keeps per-component styles tiny.
+// ---------------------------------------------------------------------------
+
+// --- Buttons ---------------------------------------------------------------
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-base);
+  line-height: 1.1;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition),
+    border-color var(--transition), transform var(--transition);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn--primary {
+  background-color: var(--c-accent);
+  color: #fff;
+}
+.btn--primary:hover {
+  background-color: var(--c-accent-dark);
+  color: #fff;
+}
+.btn--secondary {
+  background-color: transparent;
+  color: var(--c-brand-dark);
+  border-color: var(--c-brand);
+}
+.btn--secondary:hover {
+  background-color: var(--c-brand-tint);
+  color: var(--c-brand-dark);
+}
+.btn--on-brand {
+  background-color: #fff;
+  color: var(--c-brand-dark);
+}
+.btn--on-brand:hover {
+  background-color: var(--c-tint);
+  color: var(--c-brand-dark);
+}
+.btn--lg {
+  min-height: 54px;
+  padding: 0.9rem 1.9rem;
+  font-size: var(--fs-lg);
+}
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+// --- Chips / tags ----------------------------------------------------------
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--c-brand-tint);
+  color: var(--c-brand-dark);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// --- Cards -----------------------------------------------------------------
+.card {
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-sm);
+}
+a.card,
+.card--link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow var(--transition), transform var(--transition),
+    border-color var(--transition);
+}
+a.card:hover,
+.card--link:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+  border-color: var(--c-border-strong);
+}
+.card h3 {
+  color: var(--c-brand-dark);
+}
+.card__more {
+  display: inline-block;
+  margin-top: var(--sp-3);
+  font-weight: var(--fw-semibold);
+  color: var(--c-brand);
+}
+
+// --- Grids -----------------------------------------------------------------
+.grid {
+  display: grid;
+  gap: var(--sp-5);
+}
+@media (min-width: 640px) {
+  .grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 880px) {
+  .grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// --- Spacing helpers -------------------------------------------------------
+.stack > * + * {
+  margin-top: var(--sp-4);
+}
+.stack-lg > * + * {
+  margin-top: var(--sp-6);
+}
+
+// --- Section headers -------------------------------------------------------
+.section-head {
+  max-width: 46rem;
+  margin-bottom: var(--sp-6);
+}
+.section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+.section-head .lead {
+  margin-top: var(--sp-3);
+}
+
+// --- Inner-page hero -------------------------------------------------------
+.page-hero {
+  background-color: var(--c-tint);
+  padding-block: var(--sp-7) var(--sp-7);
+}
+.page-hero__inner {
+  max-width: 52rem;
+}
+.page-hero h1 {
+  margin-top: var(--sp-2);
+}
+.page-hero .lead {
+  margin-top: var(--sp-4);
+}
+
+// --- Callout / notes -------------------------------------------------------
+.note {
+  border-radius: var(--radius);
+  padding: var(--sp-5);
+  background-color: var(--c-tint);
+  border: 1px solid var(--c-border);
+}
+.note--brand {
+  background-color: var(--c-brand-tint);
+  border-color: transparent;
+}
+.note--crisis {
+  background-color: var(--c-accent-soft);
+  border-color: transparent;
+  font-size: var(--fs-sm);
+}
+.note h3 {
+  margin-bottom: var(--sp-2);
+}
+
+// --- "Who this is for" check list -----------------------------------------
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--sp-3);
+}
+.checklist li {
+  position: relative;
+  padding-left: 2rem;
+}
+.checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  background: var(--c-brand);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M6.4 11.2 3.2 8l1.1-1.1 2.1 2.1 5-5L12.5 5z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M6.4 11.2 3.2 8l1.1-1.1 2.1 2.1 5-5L12.5 5z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+// --- Data table (fees/insurance) ------------------------------------------
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 30rem;
+}
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--c-border);
+}
+.data-table th {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  color: var(--c-text);
+}
+
+.muted {
+  color: var(--c-text-muted);
+}
+.text-center {
+  text-align: center;
+}

@@ -1,0 +1,7 @@
+// Global stylesheet entry. Partials use CSS custom properties (no SCSS vars),
+// so import order only matters for @font-face availability.
+@use 'styles/fonts';
+@use 'styles/tokens';
+@use 'styles/base';
+@use 'styles/typography';
+@use 'styles/components';

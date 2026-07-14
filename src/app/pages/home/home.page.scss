@@ -1,0 +1,166 @@
+// --- Hero -------------------------------------------------------------------
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 85% -10%, var(--c-brand-tint) 0%, transparent 55%),
+    radial-gradient(90% 80% at 0% 110%, var(--c-accent-soft) 0%, transparent 50%),
+    var(--c-bg);
+  padding-block: var(--sp-8) var(--sp-8);
+}
+@media (min-width: 768px) {
+  .hero {
+    padding-block: var(--sp-9) var(--sp-9);
+  }
+}
+.hero__inner {
+  max-width: 56rem;
+}
+.hero .lead {
+  margin-top: var(--sp-5);
+  max-width: 44rem;
+}
+.hero__actions {
+  margin-top: var(--sp-6);
+}
+.hero__reassure {
+  margin-top: var(--sp-4);
+  font-size: var(--fs-sm);
+}
+.hero__verse {
+  margin: var(--sp-7) 0 0;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--c-border);
+}
+.hero__verse blockquote {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font-size: var(--fs-xl);
+}
+.hero__verse figcaption {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+// --- Trust strip ------------------------------------------------------------
+.trust {
+  border-block: 1px solid var(--c-border);
+  background: var(--c-surface);
+}
+.trust__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-5);
+  padding-block: var(--sp-6);
+  text-align: center;
+}
+.trust__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+.trust__num {
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  color: var(--c-brand-dark);
+}
+.trust__label {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+@media (min-width: 880px) {
+  .trust__inner {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// --- Detransition callout ---------------------------------------------------
+.callout {
+  background: var(--c-brand-tint);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-7) var(--sp-6);
+}
+.callout__body {
+  max-width: 48rem;
+}
+.callout .btn {
+  margin-top: var(--sp-5);
+}
+.callout .muted {
+  margin-top: var(--sp-3);
+}
+
+// --- Steps ------------------------------------------------------------------
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-5);
+  counter-reset: step;
+}
+.steps__item {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--sp-5);
+}
+.steps__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--c-brand);
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  margin-bottom: var(--sp-3);
+}
+.steps__item h3 {
+  color: var(--c-brand-dark);
+}
+.steps__item p {
+  margin-top: var(--sp-2);
+  color: var(--c-text-muted);
+}
+@media (min-width: 768px) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// --- About teaser -----------------------------------------------------------
+.about-teaser {
+  display: grid;
+  gap: var(--sp-6);
+  align-items: center;
+}
+.about-teaser__body .chip-list {
+  margin-block: var(--sp-4);
+}
+.portrait {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 100% at 30% 0%, var(--c-brand) 0%, var(--c-brand-dark) 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: var(--fs-2xl);
+  line-height: 1.25;
+  box-shadow: var(--shadow-lg);
+}
+@media (min-width: 768px) {
+  .about-teaser {
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+}
