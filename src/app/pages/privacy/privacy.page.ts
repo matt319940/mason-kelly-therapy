@@ -52,10 +52,8 @@ import { PageHero } from '../../shared/page-hero';
 
         <h2>Contact</h2>
         <p>
-          Questions about privacy may be directed to the practice
-          @if (contact.email) {
-            at <a [href]="'mailto:' + contact.email">{{ contact.email }}</a>
-          }.
+          Questions about privacy may be directed to the practice through the
+          <a [href]="contact.contactUrl" rel="noopener" target="_blank">contact form</a>.
         </p>
       </div>
     </section>

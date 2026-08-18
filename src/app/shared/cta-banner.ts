@@ -13,10 +13,14 @@ import { CONTACT } from '../core/practice.config';
         <h2>{{ heading() }}</h2>
         <p>{{ text() }}</p>
         <div class="btn-row cta__actions">
-          <a routerLink="/contact" class="btn btn--primary btn--lg">Reach Out for a Consultation</a>
-          @if (contact.email) {
-            <a [href]="'mailto:' + contact.email" class="btn btn--on-brand btn--lg">Email Mason</a>
-          }
+          <a
+            [href]="contact.contactUrl"
+            rel="noopener"
+            target="_blank"
+            class="btn btn--primary btn--lg"
+            >Reach Out for a Consultation</a
+          >
+          <a routerLink="/contact" class="btn btn--on-brand btn--lg">Contact Options</a>
         </div>
         <p class="cta__reassure">
           Confidential · No obligation · Online across {{ contact.areaServed }}

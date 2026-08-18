@@ -42,7 +42,7 @@ Read this before changing anything, because Parts 3–5 deliberately undo some o
 | Deploy method | Manual: `npm run build`, then `npx angular-cli-ghpages` |
 | CI | None, and none is planned — production deploys are run by hand (Part 6). |
 | Base path | `/mason-kelly-therapy/`, hardcoded in three files, because Pages serves from a subfolder |
-| Canonical domain in code | `https://www.masonkellytherapy.com` — aspirational, not yet owned or live |
+| Canonical domain in code | Placeholder `https://www.yourdomain.com` — must be set in Part 3.2 before launch |
 
 **The production setup deliberately avoids GitHub.** Azure is never connected to the repository:
 you build the site locally and upload the finished files with a command-line tool. That keeps the
@@ -73,14 +73,14 @@ every JSON-LD block read from it. Fixing a fact there fixes it everywhere at onc
 
 | # | Item | Where | What's wrong now |
 | --- | --- | --- | --- |
-| 1 | **Phone number** | `practice.config.ts:66-67` | **Blank.** Both `phone` and `phoneDisplay` are empty strings, so the site hides the phone and omits `telephone` from schema. The Psychology Today profile and the old site disagree — pick the one verified number. Format: `phone: '+1-773-555-0100'`, `phoneDisplay: '(773) 555-0100'`. |
-| 2 | **Contact email** | `practice.config.ts:69` | Set to `office@masonkellytherapy.com`. Confirm that mailbox exists and is monitored — it's printed on the Contact and Privacy pages as a `mailto:` link. If you buy a different domain in Part 2, this must change too. |
-| 3 | **LCSW license number** | `practice.config.ts:42` | Reads `IL #149011810`. Confirm it's current and that Mason is comfortable publishing it — it's emitted in `Person` schema as a `hasCredential` claim. |
-| 4 | **Other certifications** | `practice.config.ts:45-47` | NBCCH, CSOTS, and CADC are all listed as active. Confirm each one. |
-| 5 | **Insurance panels** | `practice.config.ts:83-92` | Seven insurers plus the claim *"and 30+ additional plans."* Verify against the actual current panel list. An inaccurate insurance claim is the most common complaint driver on a therapy site. |
-| 6 | **Fees** | `practice.config.ts:76-79` | `$130` individual, `$160` couples, `$20–$60` group sliding scale. Confirm each number. |
-| 7 | **Group schedules** | `practice.config.ts:105-124` | "Third Sunday of each month, 1:30–3:00pm" and "Every other Monday, 7:30–9:00pm." These become `EventSeries` schema, so a wrong time is a wrong rich result. |
-| 8 | **Psychology Today link** | `practice.config.ts:130` | Confirm the profile URL still resolves — it's a `sameAs` identity signal. |
+| 1 | **Phone number** | `practice.config.ts:70-71` | **Blank.** Both `phone` and `phoneDisplay` are empty strings, so the site hides the phone and omits `telephone` from schema. The Psychology Today profile and the old site disagree — pick the one verified number. Format: `phone: '+1-773-555-0100'`, `phoneDisplay: '(773) 555-0100'`. |
+| 2 | **Contact email** | `practice.config.ts:72-79` | **Deliberately blank — no action needed unless the practice wants email back.** Enquiries now route to the client's contact form at `CONTACT.contactUrl` (`masonkellytherapy.com`), which is the primary call-to-action on every page. Setting `email` to a non-empty string reinstates the email rows, buttons, and the schema `email` field everywhere. |
+| 3 | **LCSW license number** | `practice.config.ts:46` | Reads `IL #149011810`. Confirm it's current and that Mason is comfortable publishing it — it's emitted in `Person` schema as a `hasCredential` claim. |
+| 4 | **Other certifications** | `practice.config.ts:49-51` | NBCCH, CSOTS, and CADC are all listed as active. Confirm each one. |
+| 5 | **Insurance panels** | `practice.config.ts:93-102` | Seven insurers plus the claim *"and 30+ additional plans."* Verify against the actual current panel list. An inaccurate insurance claim is the most common complaint driver on a therapy site. |
+| 6 | **Fees** | `practice.config.ts:86-89` | `$130` individual, `$160` couples, `$20–$60` group sliding scale. Confirm each number. |
+| 7 | **Group schedules** | `practice.config.ts:115-134` | "Third Sunday of each month, 1:30–3:00pm" and "Every other Monday, 7:30–9:00pm." These become `EventSeries` schema, so a wrong time is a wrong rich result. |
+| 8 | **Psychology Today link** | `practice.config.ts:140` | Confirm the profile URL still resolves — it's a `sameAs` identity signal. |
 
 ### 1.2 Privacy policy — needs an attorney
 
@@ -95,13 +95,13 @@ unreviewed template is worse than shipping none.
 
 ### 1.3 Open Graph image — must become a raster file
 
-`public/og-default.svg` is an SVG, referenced by `practice.config.ts:16`. **Facebook, LinkedIn, and
+`public/og-default.svg` is an SVG, referenced by `practice.config.ts:20`. **Facebook, LinkedIn, and
 several other platforms refuse to render SVG Open Graph images** — shared links will show no
 preview card at all.
 
 1. Export the existing SVG (or a new design) to a **1200×630 PNG or JPG**.
 2. Save it as `public/og-default.png`.
-3. Change `practice.config.ts:16` to `defaultOgImage: '/og-default.png'`.
+3. Change `practice.config.ts:20` to `defaultOgImage: '/og-default.png'`.
 4. After deploying, test with the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/)
    and the [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/).
 
@@ -152,8 +152,9 @@ grep -rn "general template" src/app/pages/privacy/
 ### 2.1 Pick and purchase
 
 1. Go to [namecheap.com](https://www.namecheap.com) and create an account, or sign in.
-2. Search for the domain you want. The code currently assumes `masonkellytherapy.com` — if that's
-   available, buying it saves you edits in Part 3.
+2. Search for the domain you want. **It cannot be `masonkellytherapy.com`** — the client already
+   owns that domain and runs their contact form on it, and every call-to-action on this site links
+   out to it. This site needs a genuinely different domain.
 3. Prefer a **`.com`**. Avoid hyphens and creative TLDs; for a local healthcare practice, `.com`
    carries real trust weight with exactly the kind of client who hesitates before clicking a link.
 4. Click **Add to Cart**, then **Checkout**.
@@ -240,18 +241,22 @@ sed -i "s|/mason-kelly-therapy/fonts/|/fonts/|g" src/styles/_fonts.scss src/inde
 
 ### 3.2 Set the canonical domain
 
-**Skip this section if you bought `masonkellytherapy.com`** — the values are already correct.
+**This section is mandatory.** All three files below currently hold the placeholder
+`https://www.yourdomain.com`, which resolves to nothing. Until you replace it, your canonical
+tags, sitemap, and robots.txt advertise a domain that doesn't exist — and Google will not index the
+site correctly.
 
-Otherwise, three files must agree, or your canonical tags, sitemap, and robots.txt will advertise a
-domain you don't own:
+All three must agree:
 
 | File | Line | Change to |
 | --- | --- | --- |
-| `src/app/core/practice.config.ts` | 15 | `origin: 'https://www.yourdomain.com',` |
+| `src/app/core/practice.config.ts` | 19 | `origin: 'https://www.yourdomain.com',` |
 | `scripts/generate-sitemap.mjs` | 9 | `const ORIGIN = 'https://www.yourdomain.com';` |
 | `public/robots.txt` | 4 | `Sitemap: https://www.yourdomain.com/sitemap.xml` |
 
-Also revisit `CONTACT.email` at `practice.config.ts:69` if it used the old domain.
+Leave `CONTACT.contactUrl` (`practice.config.ts:79`) pointing at `https://masonkellytherapy.com`.
+That is the client's separate contact-form site, not this one, so it does **not** change when you
+pick a domain for this site.
 
 Decide **now** whether your canonical host is `www.yourdomain.com` or the bare `yourdomain.com`,
 and use it consistently across all three. This guide assumes **`www`**, matching what the code
@@ -823,7 +828,9 @@ Work through this once the domain is live.
 
 **Content and correctness**
 
-- [ ] Phone and email are correct and clickable.
+- [ ] The phone number is correct and clickable (or still hidden, if left blank).
+- [ ] Every "Reach Out for a Consultation" button opens the contact form at `masonkellytherapy.com`.
+- [ ] No `mailto:` link appears anywhere on the site.
 - [ ] The fees table matches reality.
 - [ ] The insurance list matches reality.
 - [ ] Group times are right.

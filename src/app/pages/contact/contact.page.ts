@@ -24,12 +24,16 @@ import { PageHero } from '../../shared/page-hero';
             <h2>Get in touch</h2>
             <p class="muted">Online therapy available throughout {{ contact.areaServed }}.</p>
             <ul class="contact-methods">
-              @if (contact.email) {
-                <li>
-                  <span class="contact-methods__label">Email</span>
-                  <a [href]="'mailto:' + contact.email" class="contact-methods__value">{{ contact.email }}</a>
-                </li>
-              }
+              <li>
+                <span class="contact-methods__label">Contact form</span>
+                <a
+                  [href]="contact.contactUrl"
+                  rel="noopener"
+                  target="_blank"
+                  class="contact-methods__value"
+                  >masonkellytherapy.com</a
+                >
+              </li>
               @if (contact.phoneDisplay) {
                 <li>
                   <span class="contact-methods__label">Phone</span>
@@ -37,9 +41,13 @@ import { PageHero } from '../../shared/page-hero';
                 </li>
               }
             </ul>
-            @if (contact.email) {
-              <a [href]="'mailto:' + contact.email" class="btn btn--primary btn--lg">Email Mason</a>
-            }
+            <a
+              [href]="contact.contactUrl"
+              rel="noopener"
+              target="_blank"
+              class="btn btn--primary btn--lg"
+              >Send a Message</a
+            >
             <p class="contact-note muted">
               Please don’t include sensitive health details in your first message — just let me know
               you’d like to connect and the best way to reach you.

@@ -11,8 +11,12 @@
 export const SITE = {
   name: 'Mason L. Kelly, LCSW — Faith-Centered Christian Counseling',
   shortName: 'Mason Kelly, LCSW',
-  /** TODO: confirm the final canonical domain (keep/redirect masonkellytherapy.com vs new). */
-  origin: 'https://www.masonkellytherapy.com',
+  /**
+   * TODO: set to the new canonical domain once purchased (see DEPLOYMENT.md Part 2).
+   * This must NOT be masonkellytherapy.com — that domain is the client's separate
+   * contact-form site, which every CTA links to via CONTACT.contactUrl below.
+   */
+  origin: 'https://www.yourdomain.com',
   defaultOgImage: '/og-default.svg',
   locale: 'en_US',
   tagline: 'Faith-Centered, Bible-Based Christian Therapy — Online Across Illinois',
@@ -65,8 +69,14 @@ export const CONTACT = {
   /** TODO: confirm the single verified phone (PT profile and old site disagree). */
   phone: '', // e.g. '+1-773-000-0000' — leave blank until verified
   phoneDisplay: '', // e.g. '(773) 000-0000'
-  /** TODO: confirm the verified contact email. */
-  email: 'office@masonkellytherapy.com',
+  /**
+   * Intentionally blank. Enquiries go through the contact form at `contactUrl`, not email.
+   * Every email element in the UI and in JSON-LD is guarded on this being non-empty, so
+   * leaving it '' removes them cleanly. Set it only if the practice wants email back.
+   */
+  email: '',
+  /** The client's separate contact-form site. Primary call-to-action target sitewide. */
+  contactUrl: 'https://masonkellytherapy.com',
   hours: [
     { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '18:00' },
   ],

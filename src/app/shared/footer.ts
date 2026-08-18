@@ -53,9 +53,9 @@ import { SERVICE_LINKS } from '../core/navigation';
           @if (contact.phoneDisplay) {
             <p><a [href]="'tel:' + contact.phone">{{ contact.phoneDisplay }}</a></p>
           }
-          @if (contact.email) {
-            <p><a [href]="'mailto:' + contact.email">{{ contact.email }}</a></p>
-          }
+          <p>
+            <a [href]="contact.contactUrl" rel="noopener" target="_blank">Send a message</a>
+          </p>
           @if (sameAs.length) {
             <ul class="site-footer__social">
               @for (url of sameAs; track url) {

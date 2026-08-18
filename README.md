@@ -124,10 +124,10 @@ Setting `baseHref` alone is **not** sufficient: root-absolute URLs like `/fonts/
 `<base href>` entirely, and CSS `url()` resolves against the stylesheet's own location. That is
 why the last two files must carry the prefix literally.
 
-Note that `sitemap.xml`, `robots.txt`, and every canonical/OG tag still emit
-`https://www.masonkellytherapy.com` URLs (from `SITE.origin`). That is intended for the eventual
-production domain — don't submit the sitemap to Search Console while the Pages URL is the only
-live host.
+Note that `sitemap.xml`, `robots.txt`, and every canonical/OG tag emit the **placeholder**
+`https://www.yourdomain.com` (from `SITE.origin`), which resolves to nothing. Set the real domain
+before launch — see `DEPLOYMENT.md` Part 3.2 — and don't submit the sitemap to Search Console while
+the Pages URL is the only live host.
 
 ### Moving to the real domain, or another host (Cloudflare Pages / Netlify)
 
@@ -143,11 +143,14 @@ three files above first. Then deploy the static output as-is:
 
 These are intentionally left as placeholders/TODOs in `practice.config.ts`:
 
-- [ ] **Verified phone + email** — the Psychology Today profile and the old site disagree. Set
-  `CONTACT.phone`, `CONTACT.phoneDisplay`, and `CONTACT.email`. (Phone is currently blank and
-  hidden until set; `telephone` is omitted from schema while blank.)
-- [ ] **Canonical domain** — confirm and set `SITE.origin` (used for canonical/OG/sitemap), and
-  keep `ORIGIN` in `scripts/generate-sitemap.mjs` and the URL in `public/robots.txt` in sync.
+- [ ] **Verified phone** — the Psychology Today profile and the old site disagree. Set
+  `CONTACT.phone` and `CONTACT.phoneDisplay`. (Phone is currently blank and hidden until set;
+  `telephone` is omitted from schema while blank.) `CONTACT.email` is intentionally blank —
+  enquiries route to `CONTACT.contactUrl` instead.
+- [ ] **Canonical domain** — `SITE.origin` is the placeholder `https://www.yourdomain.com`. Set the
+  real domain (it cannot be `masonkellytherapy.com`, which is the client's separate contact-form
+  site), and keep `ORIGIN` in `scripts/generate-sitemap.mjs` and the URL in `public/robots.txt`
+  in sync.
 - [ ] **Credentials/license** — confirm the LCSW license # and certifications are current and OK
   to publish.
 - [ ] **Insurance panels** — verify the accepted-plan list (`FEES.insurers`) is current.

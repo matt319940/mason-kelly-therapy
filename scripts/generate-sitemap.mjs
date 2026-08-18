@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const ORIGIN = 'https://www.masonkellytherapy.com'; // keep in sync with SITE.origin
+const ORIGIN = 'https://www.yourdomain.com'; // keep in sync with SITE.origin
 const BLOG_DIR = join(here, '..', 'src', 'app', 'content', 'blog');
 const OUT_DIR = join(here, '..', 'dist', 'mason-kelly-therapy', 'browser');
 
