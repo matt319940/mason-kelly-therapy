@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   DOCUMENT,
+  ElementRef,
   HostListener,
   PLATFORM_ID,
   computed,
@@ -92,36 +93,36 @@ import { SITE } from '../core/practice.config';
           </span>
         </button>
       </div>
-
-      <!-- Mobile drawer -->
-      @if (menuOpen()) {
-        <div class="drawer-backdrop" (click)="closeAll()"></div>
-        <nav id="mobile-menu" class="drawer" aria-label="Primary" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
-          <ul class="drawer__list">
-            <li><a routerLink="/" class="drawer__link" (click)="closeAll()">Home</a></li>
-            @for (item of nav; track item.path) {
-              <li>
-                <a [routerLink]="item.path" class="drawer__link" (click)="closeAll()">{{ item.label }}</a>
-                @if (item.children) {
-                  <ul class="drawer__sublist">
-                    @for (child of item.children; track child.path) {
-                      <li>
-                        <a [routerLink]="child.path" class="drawer__sublink" (click)="closeAll()">
-                          {{ child.label }}
-                        </a>
-                      </li>
-                    }
-                  </ul>
-                }
-              </li>
-            }
-            <li class="drawer__cta">
-              <a routerLink="/contact" class="btn btn--primary btn--lg" (click)="closeAll()">Reach Out</a>
-            </li>
-          </ul>
-        </nav>
-      }
     </header>
+
+    <!-- Mobile drawer — outside <header> so its backdrop-filter doesn't clip the fixed drawer -->
+    @if (menuOpen()) {
+      <div class="drawer-backdrop" (click)="closeAll()"></div>
+      <nav id="mobile-menu" class="drawer" aria-label="Primary" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+        <ul class="drawer__list">
+          <li><a routerLink="/" class="drawer__link" (click)="closeAll()">Home</a></li>
+          @for (item of nav; track item.path) {
+            <li>
+              <a [routerLink]="item.path" class="drawer__link" (click)="closeAll()">{{ item.label }}</a>
+              @if (item.children) {
+                <ul class="drawer__sublist">
+                  @for (child of item.children; track child.path) {
+                    <li>
+                      <a [routerLink]="child.path" class="drawer__sublink" (click)="closeAll()">
+                        {{ child.label }}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              }
+            </li>
+          }
+          <li class="drawer__cta">
+            <a routerLink="/contact" class="btn btn--primary btn--lg" (click)="closeAll()">Reach Out</a>
+          </li>
+        </ul>
+      </nav>
+    }
   `,
   styles: [
     `
@@ -282,11 +283,15 @@ import { SITE } from '../core/practice.config';
       }
       .drawer {
         position: fixed;
-        inset: var(--header-h) 0 0 0;
+        top: var(--header-h);
+        left: 0;
+        right: 0;
+        height: calc(100vh - var(--header-h));
+        height: calc(100dvh - var(--header-h));
         z-index: 95;
         background: var(--c-bg);
         overflow-y: auto;
-        padding: var(--sp-5) var(--sp-5) var(--sp-8);
+        padding: var(--sp-5) var(--sp-5) calc(var(--sp-8) + env(safe-area-inset-bottom, 0px));
         border-top: 1px solid var(--c-border);
       }
       .drawer__list {
@@ -349,6 +354,7 @@ export class Header {
   protected readonly dropdownOpen = signal(false);
 
   private readonly doc = inject(DOCUMENT);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   constructor() {
@@ -376,5 +382,14 @@ export class Header {
   @HostListener('document:keydown.escape')
   protected onEscape(): void {
     this.closeAll();
+  }
+
+  // Close the desktop dropdown when the user taps/clicks anywhere outside the header.
+  @HostListener('document:pointerdown', ['$event'])
+  protected onDocumentPointerDown(event: Event): void {
+    if (!this.dropdownOpen()) return;
+    if (!this.host.nativeElement.contains(event.target as Node)) {
+      this.dropdownOpen.set(false);
+    }
   }
 }

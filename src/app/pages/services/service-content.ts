@@ -173,7 +173,7 @@ export const SERVICE_CONTENT: Record<string, ServicePageContent> = {
       },
       {
         q: 'Are you a mandated reporter?',
-        a: 'Yes, like all licensed clinicians I have certain legal reporting obligations, which I will explain clearly and transparently at the start so there are no surprises.',
+        a: 'Yes, like all licensed clinicians I have certain legal reporting obligations, which is indicated in the intake forms.',
       },
       {
         q: 'Will exploring faith feel pushy?',
@@ -354,7 +354,7 @@ export const SERVICE_CONTENT: Record<string, ServicePageContent> = {
       },
       {
         q: 'Do you only see Christian couples?',
-        a: 'No. Couples of all backgrounds are welcome. Faith is integrated only to the degree you both want.',
+        a: 'No. Heterosexual couples of all backgrounds are welcome. Faith is integrated only to the degree you both want.',
       },
       {
         q: 'How much are couples sessions?',

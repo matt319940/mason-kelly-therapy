@@ -13,7 +13,8 @@ import { CtaBanner } from '../../shared/cta-banner';
   template: `
     <app-page-hero
       eyebrow="Meet your therapist"
-      heading="About Mason L. Kelly, MSW, LCSW"
+      heading="Mason L. Kelly"
+      subheading="MSW, LCSW, CADC, NBCCH"
       lead="More than 22 years of compassionate, faith-centered care — helping people find clarity, healing, and restoration in Christ."
       [crumbs]="crumbs"
     >
@@ -36,8 +37,8 @@ import { CtaBanner } from '../../shared/cta-banner';
               therapy.
             </p>
             <p>
-              I help adults who sometimes turn to drugs, alcohol, unhealthy eating, sex, or other
-              people to numb their pain. As a Christian, I draw on biblical principles to address
+              I help adults who sometimes turn to drugs, alcohol, unhealthy eating, sex, or
+              unhealthy relationships to numb their pain. As a Christian, I draw on biblical principles to address
               spiritual needs and concerns alongside proven clinical methods. I have extensive
               experience treating depression, anxiety, mood changes, and post-traumatic stress.
             </p>

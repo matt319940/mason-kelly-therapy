@@ -16,7 +16,12 @@ import { CrumbItem } from '../core/content/types';
         @if (eyebrow()) {
           <p class="eyebrow">{{ eyebrow() }}</p>
         }
-        <h1>{{ heading() }}</h1>
+        <h1>
+          {{ heading() }}
+          @if (subheading()) {
+            <span class="page-hero__subheading">{{ subheading() }}</span>
+          }
+        </h1>
         @if (lead()) {
           <p class="lead">{{ lead() }}</p>
         }
@@ -28,6 +33,14 @@ import { CrumbItem } from '../core/content/types';
   `,
   styles: [
     `
+      .page-hero__subheading {
+        display: block;
+        margin-top: 0.3em;
+        font-size: 0.55em;
+        font-weight: var(--fw-medium);
+        color: var(--c-text-muted);
+        letter-spacing: 0.02em;
+      }
       .page-hero__inner app-breadcrumbs {
         display: block;
         margin-bottom: var(--sp-4);
@@ -47,6 +60,7 @@ import { CrumbItem } from '../core/content/types';
 export class PageHero {
   readonly eyebrow = input<string>();
   readonly heading = input.required<string>();
+  readonly subheading = input<string>();
   readonly lead = input<string>();
   readonly crumbs = input<CrumbItem[]>();
 }
