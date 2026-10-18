@@ -54,7 +54,7 @@ import { CtaBanner } from '../../shared/cta-banner';
             Trauma-informed clinical work and spiritual meaning-making are not at odds. When you want
             it, Scripture is used supportively and at your invitation, woven together with
             evidence-based care. Learn more about
-            <a routerLink="/christian-counseling">Bible-based Christian counseling</a> and
+            <a routerLink="/christian-counseling">Bible-based Christian therapy/counseling</a> and
             <a routerLink="/detransition-support">detransition support</a>.
           </p>
         </section>
@@ -81,7 +81,7 @@ export class DetransitionFaithIdentityPage {
       },
       [
         service({
-          name: 'Christian Counseling for Transition Regret',
+          name: 'Christian Therapy/Counseling for Transition Regret',
           serviceType: 'Faith and identity support after detransition (client-led)',
           description:
             'Client-led, compassionate support for reconnecting faith and identity after detransition, online across Illinois.',

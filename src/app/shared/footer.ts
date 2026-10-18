@@ -37,7 +37,7 @@ import { SERVICE_LINKS } from '../core/navigation';
           <h2 class="site-footer__head">Explore</h2>
           <ul>
             <li><a routerLink="/detransition-support">Detransition Support</a></li>
-            <li><a routerLink="/christian-counseling">Christian Counseling</a></li>
+            <li><a routerLink="/christian-counseling">Christian Therapy/Counseling</a></li>
             <li><a routerLink="/groups">Support Groups</a></li>
             <li><a routerLink="/about">About Mason</a></li>
             <li><a routerLink="/fees-insurance">Fees &amp; Insurance</a></li>

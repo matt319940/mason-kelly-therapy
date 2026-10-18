@@ -456,8 +456,8 @@ way to check whether a problem is the site or the DNS.
 Azure reads an optional `staticwebapp.config.json` for routing and header rules. This site needs one
 small thing from it: consistent URLs.
 
-Create the file at **`public/staticwebapp.config.json`** — Angular copies everything in `public/` to
-the output root, which is exactly where the CLI expects to find it:
+**Already done:** the file is at **`public/staticwebapp.config.json`**. Angular copies everything in
+`public/` to the output root, which is exactly where the CLI expects to find it:
 
 ```json
 {
@@ -880,10 +880,22 @@ reverted. Check all three files.
 Check your Node version first: `node -v` must be 22.12 or newer. If it's older, that's almost
 certainly the cause. On a fresh clone, make sure `npm install` ran successfully before building.
 
-**`swa deploy` says the token is invalid.**
-Either the token was truncated when copied, or it's been reset. Get a fresh one from the Azure
-portal → your Static Web App → **Overview** → **Manage deployment token**. Also confirm your CLI is
-current — `swa --version` must be 2.0.2 or newer, since older releases can no longer authenticate.
+**`swa deploy` fails with "The deployment binary exited with code 1."**
+That message is generic. The real reason is hidden unless you add `--verbose=silly`, which also
+prints your token in plain text, so don't share that output unredacted. The `ldd` advice in the
+message is for Linux and doesn't apply on Windows. In Windows PowerShell, the `NativeCommandError` /
+`RemoteException` lines are noise; read the plain-text line after them.
+
+**`swa deploy` says the token is invalid** (`deployment_token provided was invalid`).
+Either the token was mangled when copied, or it's been reset. Get a fresh one from the Azure
+portal → your Static Web App → **Overview** → **Manage deployment token**, using the **copy
+button** rather than selecting the text. In PowerShell, set it with **single quotes**, which are
+taken literally, and pass it only one way (env var *or* `--deployment-token`, not both):
+```powershell
+$env:SWA_CLI_DEPLOYMENT_TOKEN = 'paste-token-here'
+```
+Also confirm your CLI is current — `swa --version` must be 2.0.2 or newer, since older releases can
+no longer authenticate.
 
 **`swa deploy` succeeds but the live site doesn't change.**
 You almost certainly omitted `--env production`, so it deployed to a preview environment. Check the

@@ -1,12 +1,12 @@
 ---
-title: "Christian Counseling for Transition Regret: Holding Grief and Hope Together"
+title: "Christian Therapy/Counseling for Transition Regret: Holding Grief and Hope Together"
 description: "For those processing transition regret from a place of faith, here is what it can look like to hold grief and hope at the same time — gently, and without shame."
 date: 2026-06-12
 category: "Detransition & Identity"
 related:
   - label: "Faith & Identity After Detransition"
     path: "/detransition-support/faith-and-identity"
-  - label: "Bible-Based Christian Counseling"
+  - label: "Bible-Based Christian Therapy/Counseling"
     path: "/christian-counseling"
 ---
 

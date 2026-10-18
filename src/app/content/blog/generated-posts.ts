@@ -24,7 +24,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     "slug": "christian-counseling-for-transition-regret",
-    "title": "Christian Counseling for Transition Regret: Holding Grief and Hope Together",
+    "title": "Christian Therapy/Counseling for Transition Regret: Holding Grief and Hope Together",
     "description": "For those processing transition regret from a place of faith, here is what it can look like to hold grief and hope at the same time — gently, and without shame.",
     "date": "2026-06-12",
     "category": "Detransition & Identity",
@@ -35,7 +35,7 @@ export const BLOG_POSTS: BlogPost[] = [
         "path": "/detransition-support/faith-and-identity"
       },
       {
-        "label": "Bible-Based Christian Counseling",
+        "label": "Bible-Based Christian Therapy/Counseling",
         "path": "/christian-counseling"
       }
     ],
@@ -43,8 +43,8 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     "slug": "does-insurance-cover-christian-counseling",
-    "title": "Does Insurance Cover Christian Counseling? How Faith-Based Therapy Gets Billed",
-    "description": "Wondering whether insurance pays for Christian counseling? Here's how faith-integrated therapy is billed, and how to check your coverage before your first session.",
+    "title": "Does Insurance Cover Christian Therapy/Counseling? How Faith-Based Therapy Gets Billed",
+    "description": "Wondering whether insurance pays for Christian therapy/counseling? Here's how faith-integrated therapy is billed, and how to check your coverage before your first session.",
     "date": "2026-06-05",
     "category": "Faith & Mental Health",
     "readingMinutes": 2,
@@ -54,11 +54,11 @@ export const BLOG_POSTS: BlogPost[] = [
         "path": "/fees-insurance"
       },
       {
-        "label": "Bible-Based Christian Counseling",
+        "label": "Bible-Based Christian Therapy/Counseling",
         "path": "/christian-counseling"
       }
     ],
-    "html": "<p>It&#39;s one of the most common questions I hear: <em>&quot;Will my insurance actually cover faith-based therapy?&quot;</em> The short answer is usually <strong>yes — indirectly.</strong> Here&#39;s how it works.</p>\n<h2>Insurance covers the clinical care, not the faith label</h2>\n<p>Insurance plans reimburse <strong>mental health treatment for a covered diagnosis</strong>, billed with standard procedure codes (CPT codes) — the same codes used for any psychotherapy. They don&#39;t have a separate category for &quot;Christian counseling,&quot; and they don&#39;t need one.</p>\n<p>Because I&#39;m a Licensed Clinical Social Worker, faith-integrated therapy is, clinically and administratively, the same as any other psychotherapy. The faith element is part of <em>how</em> we work together; it doesn&#39;t change <em>how the session is billed.</em></p>\n<h2>What this means for you</h2>\n<ul>\n<li>If you have a covered mental health benefit, faith-integrated sessions are typically eligible just like standard therapy.</li>\n<li>More than 30 plans are accepted, including Aetna, Blue Cross Blue Shield, Cigna, Humana, Medicare, UnitedHealthcare, and TRICARE.</li>\n<li>Coverage details (copays, deductibles, session limits) vary by plan, so it&#39;s worth verifying before you begin.</li>\n</ul>\n<h2>Pastoral counseling vs. licensed therapy</h2>\n<p>One distinction matters here. <em>Pastoral counseling</em> offered by clergy is spiritual guidance and generally isn&#39;t billable to insurance. <em>Licensed clinical psychotherapy that integrates faith</em> — what I provide — is billable, because it&#39;s delivered by a licensed clinician and meets clinical standards.</p>\n<h2>If insurance isn&#39;t an option</h2>\n<p>If you&#39;re uninsured or I&#39;m out-of-network for your plan, there are still paths forward:</p>\n<ul>\n<li>A <strong>sliding scale</strong> is available for those who need it.</li>\n<li>I can provide a <strong>superbill</strong> you can submit for possible out-of-network reimbursement.</li>\n<li>Under the No Surprises Act, you can request a <strong>Good Faith Estimate</strong> of expected costs.</li>\n</ul>\n<p>You can see current rates on the <a href=\"/fees-insurance\">fees and insurance page</a>, and I&#39;m glad to help you check your benefits before we start. When you&#39;re ready, <a href=\"/contact\">reach out</a>.</p>\n"
+    "html": "<p>It&#39;s one of the most common questions I hear: <em>&quot;Will my insurance actually cover faith-based therapy?&quot;</em> The short answer is usually <strong>yes — indirectly.</strong> Here&#39;s how it works.</p>\n<h2>Insurance covers the clinical care, not the faith label</h2>\n<p>Insurance plans reimburse <strong>mental health treatment for a covered diagnosis</strong>, billed with standard procedure codes (CPT codes) — the same codes used for any psychotherapy. They don&#39;t have a separate category for &quot;Christian therapy/counseling,&quot; and they don&#39;t need one.</p>\n<p>Because I&#39;m a Licensed Clinical Social Worker, faith-integrated therapy is, clinically and administratively, the same as any other psychotherapy. The faith element is part of <em>how</em> we work together; it doesn&#39;t change <em>how the session is billed.</em></p>\n<h2>What this means for you</h2>\n<ul>\n<li>If you have a covered mental health benefit, faith-integrated sessions are typically eligible just like standard therapy.</li>\n<li>More than 30 plans are accepted, including Aetna, Blue Cross Blue Shield, Cigna, Humana, Medicare, UnitedHealthcare, and TRICARE.</li>\n<li>Coverage details (copays, deductibles, session limits) vary by plan, so it&#39;s worth verifying before you begin.</li>\n</ul>\n<h2>Pastoral counseling vs. licensed therapy</h2>\n<p>One distinction matters here. <em>Pastoral counseling</em> offered by clergy is spiritual guidance and generally isn&#39;t billable to insurance. <em>Licensed clinical psychotherapy that integrates faith</em> — what I provide — is billable, because it&#39;s delivered by a licensed clinician and meets clinical standards.</p>\n<h2>If insurance isn&#39;t an option</h2>\n<p>If you&#39;re uninsured or I&#39;m out-of-network for your plan, there are still paths forward:</p>\n<ul>\n<li>A <strong>sliding scale</strong> is available for those who need it.</li>\n<li>I can provide a <strong>superbill</strong> you can submit for possible out-of-network reimbursement.</li>\n<li>Under the No Surprises Act, you can request a <strong>Good Faith Estimate</strong> of expected costs.</li>\n</ul>\n<p>You can see current rates on the <a href=\"/fees-insurance\">fees and insurance page</a>, and I&#39;m glad to help you check your benefits before we start. When you&#39;re ready, <a href=\"/contact\">reach out</a>.</p>\n"
   },
   {
     "slug": "childhood-emotional-neglect-the-wound-you-cant-name",
@@ -92,7 +92,7 @@ export const BLOG_POSTS: BlogPost[] = [
         "path": "/services/depression-anxiety-therapy"
       },
       {
-        "label": "Bible-Based Christian Counseling",
+        "label": "Bible-Based Christian Therapy/Counseling",
         "path": "/christian-counseling"
       }
     ],

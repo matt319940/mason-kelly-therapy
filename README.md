@@ -1,4 +1,4 @@
-# Mason L. Kelly, LCSW — Faith-Centered Christian Counseling
+# Mason L. Kelly, LCSW — Faith-Centered Christian Therapy/Counseling
 
 A gold-standard, SEO-optimized marketing website for a solo licensed therapist offering
 online, faith-centered Christian therapy across Illinois — including a distinctive

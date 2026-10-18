@@ -59,7 +59,7 @@ import { CtaBanner } from '../../shared/cta-banner';
         </div>
 
         <div class="note note--brand">
-          <h3>Does insurance cover Christian counseling?</h3>
+          <h3>Does insurance cover Christian therapy/counseling?</h3>
           <p>
             In most cases, yes — indirectly. Insurance reimburses the <em>clinical</em> care for a
             covered diagnosis (billed by standard CPT codes), not the faith element specifically.

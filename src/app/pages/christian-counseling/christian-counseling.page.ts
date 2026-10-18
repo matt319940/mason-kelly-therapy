@@ -13,8 +13,8 @@ import { CtaBanner } from '../../shared/cta-banner';
   imports: [RouterLink, PageHero, FaqList, CtaBanner],
   template: `
     <app-page-hero
-      eyebrow="Christian Counseling"
-      heading="Bible-Based Christian Counseling, Online in Illinois"
+      eyebrow="Christian Therapy/Counseling"
+      heading="Bible-Based Christian Therapy/Counseling, Online in Illinois"
       lead="Faith and clinical care, working together. I integrate biblical principles with proven, evidence-based therapy — at your pace, and always your choice."
       [crumbs]="crumbs"
     >
@@ -78,7 +78,7 @@ import { CtaBanner } from '../../shared/cta-banner';
 export class ChristianCounselingPage {
   protected readonly crumbs = [
     { name: 'Home', path: '/' },
-    { name: 'Christian Counseling', path: '/christian-counseling' },
+    { name: 'Christian Therapy/Counseling', path: '/christian-counseling' },
   ];
 
   protected readonly faqs: FaqItem[] = [
@@ -99,17 +99,17 @@ export class ChristianCounselingPage {
   constructor() {
     inject(SeoService).page(
       {
-        title: 'Christian Counseling Illinois | Bible-Based Telehealth',
+        title: 'Christian Therapy/Counseling Illinois | Bible-Based Telehealth',
         description:
-          'Bible-based Christian counseling that integrates faith with clinical, evidence-based care. Online across Illinois with Mason L. Kelly, MSW, LCSW. 22+ years.',
+          'Bible-based Christian therapy/counseling that integrates faith with clinical, evidence-based care. Online across Illinois with Mason L. Kelly, MSW, LCSW. 22+ years.',
         path: '/christian-counseling',
       },
       [
         service({
-          name: 'Bible-Based Christian Counseling',
+          name: 'Bible-Based Christian Therapy/Counseling',
           serviceType: 'Faith-integrated psychotherapy',
           description:
-            'Bible-based Christian counseling integrating faith with evidence-based clinical care, online across Illinois.',
+            'Bible-based Christian therapy/counseling integrating faith with evidence-based clinical care, online across Illinois.',
         }),
         breadcrumb(this.crumbs),
         faqPage(this.faqs),

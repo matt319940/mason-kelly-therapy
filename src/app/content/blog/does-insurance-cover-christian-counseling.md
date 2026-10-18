@@ -1,12 +1,12 @@
 ---
-title: "Does Insurance Cover Christian Counseling? How Faith-Based Therapy Gets Billed"
-description: "Wondering whether insurance pays for Christian counseling? Here's how faith-integrated therapy is billed, and how to check your coverage before your first session."
+title: "Does Insurance Cover Christian Therapy/Counseling? How Faith-Based Therapy Gets Billed"
+description: "Wondering whether insurance pays for Christian therapy/counseling? Here's how faith-integrated therapy is billed, and how to check your coverage before your first session."
 date: 2026-06-05
 category: "Faith & Mental Health"
 related:
   - label: "Fees & Insurance"
     path: "/fees-insurance"
-  - label: "Bible-Based Christian Counseling"
+  - label: "Bible-Based Christian Therapy/Counseling"
     path: "/christian-counseling"
 ---
 
@@ -14,7 +14,7 @@ It's one of the most common questions I hear: *"Will my insurance actually cover
 
 ## Insurance covers the clinical care, not the faith label
 
-Insurance plans reimburse **mental health treatment for a covered diagnosis**, billed with standard procedure codes (CPT codes) — the same codes used for any psychotherapy. They don't have a separate category for "Christian counseling," and they don't need one.
+Insurance plans reimburse **mental health treatment for a covered diagnosis**, billed with standard procedure codes (CPT codes) — the same codes used for any psychotherapy. They don't have a separate category for "Christian therapy/counseling," and they don't need one.
 
 Because I'm a Licensed Clinical Social Worker, faith-integrated therapy is, clinically and administratively, the same as any other psychotherapy. The faith element is part of *how* we work together; it doesn't change *how the session is billed.*
 

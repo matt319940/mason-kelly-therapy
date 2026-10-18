@@ -33,7 +33,7 @@ export const MAIN_NAV: NavGroup[] = [
       { label: 'Support Groups', path: '/groups' },
     ],
   },
-  { label: 'Christian Counseling', path: '/christian-counseling' },
+  { label: 'Christian Therapy/Counseling', path: '/christian-counseling' },
   { label: 'Fees & Insurance', path: '/fees-insurance' },
   { label: 'Blog', path: '/blog' },
   { label: 'Contact', path: '/contact' },

@@ -9,7 +9,7 @@
  */
 
 export const SITE = {
-  name: 'Mason L. Kelly, LCSW — Faith-Centered Christian Counseling',
+  name: 'Mason L. Kelly, LCSW — Faith-Centered Christian Therapy/Counseling',
   shortName: 'Mason Kelly, LCSW',
   /**
    * Canonical domain. Keep in sync with scripts/generate-sitemap.mjs and public/robots.txt.
@@ -51,7 +51,7 @@ export const CLINICIAN = {
     { abbr: 'CADC', name: 'Certified Alcohol & Drug Counselor', category: 'certification' },
   ] satisfies Credential[],
   knowsAbout: [
-    'Christian counseling',
+    'Christian therapy/counseling',
     'Bible-based therapy',
     'detransition and transition-regret support',
     'trauma-informed psychotherapy',

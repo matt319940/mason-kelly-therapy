@@ -6,7 +6,7 @@ category: "Anxiety & Depression"
 related:
   - label: "Depression & Anxiety Therapy"
     path: "/services/depression-anxiety-therapy"
-  - label: "Bible-Based Christian Counseling"
+  - label: "Bible-Based Christian Therapy/Counseling"
     path: "/christian-counseling"
 ---
 

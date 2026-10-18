@@ -25,7 +25,7 @@ import { SITE } from '../core/practice.config';
       <div class="container site-header__bar">
         <a routerLink="/" class="brand" (click)="closeAll()">
           <span class="brand__name">Mason&nbsp;Kelly<span class="brand__cred">, LCSW</span></span>
-          <span class="brand__tag">Faith-Centered Christian Counseling</span>
+          <span class="brand__tag">Faith-Centered Christian Therapy/Counseling</span>
         </a>
 
         <!-- Desktop nav -->

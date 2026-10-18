@@ -38,7 +38,7 @@ export class FaqPage {
 
   protected readonly faqs: FaqItem[] = [
     {
-      q: 'What is Bible-based Christian counseling, and how is faith integrated?',
+      q: 'What is Bible-based Christian therapy/counseling, and how is faith integrated?',
       a: 'It is licensed psychotherapy that integrates your faith with evidence-based clinical care. Scripture and prayer are woven in only at your pace and invitation — never imposed. You receive sound clinical treatment and faith support together, not one instead of the other.',
     },
     {
