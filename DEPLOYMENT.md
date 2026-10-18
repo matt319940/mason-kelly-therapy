@@ -3,7 +3,7 @@
 A step-by-step walkthrough for taking this site from its current staging state to a real,
 Google-indexed website on a domain you own.
 
-**What you'll have at the end:** the site live at `https://www.yourdomain.com`, served by Azure
+**What you'll have at the end:** the site live at `https://www.masonkellytherapist.com`, served by Azure
 Static Web Apps over HTTPS, deployed by hand from any laptop that has the source code, and
 submitted to Google for indexing. **Nothing in the production setup depends on GitHub.**
 
@@ -37,12 +37,11 @@ Read this before changing anything, because Parts 3–5 deliberately undo some o
 
 | Thing | Current state |
 | --- | --- |
-| Live copy | GitHub Pages at `https://matt319940.github.io/mason-kelly-therapy/` |
-| Served from | The `gh-pages` branch (built output — never edit that branch by hand) |
-| Deploy method | Manual: `npm run build`, then `npx angular-cli-ghpages` |
+| Old copy | GitHub Pages at `https://matt319940.github.io/mason-kelly-therapy/`, a stale build from the `gh-pages` branch. Nothing deploys there any more; switch it off per Part 8. |
+| Deploy method | Manual: `npm run build`, then `swa deploy` to Azure (Parts 4–6) |
 | CI | None, and none is planned — production deploys are run by hand (Part 6). |
-| Base path | `/mason-kelly-therapy/`, hardcoded in three files, because Pages serves from a subfolder |
-| Canonical domain in code | Placeholder `https://www.yourdomain.com` — must be set in Part 3.2 before launch |
+| Base path | `/` — the old GitHub Pages `/mason-kelly-therapy/` prefix has been removed (Part 3.1) |
+| Canonical domain in code | `https://www.masonkellytherapist.com` — already set (Part 3.2), but not live until Part 5 |
 
 **The production setup deliberately avoids GitHub.** Azure is never connected to the repository:
 you build the site locally and upload the finished files with a command-line tool. That keeps the
@@ -50,12 +49,10 @@ project portable — it can move to GitLab, a private server, or a folder on a h
 breaking the live site. The two things that must survive any such move are the **source code** and
 the **deployment token** from [Part 4.3](#43-get-the-deployment-token-and-keep-it-safe).
 
-Treat GitHub Pages as **staging**. It stays useful for previewing changes after launch, but see
-[Part 8](#part-8--launch-day-verification) — you'll want to retire it rather than leave a public
-duplicate of your site on the web.
+GitHub Pages is **no longer used**, not even for staging. For previews, use Azure preview
+environments ([Part 6.3](#63-a-safer-habit-preview-first)).
 
-> `README.md` documents the GitHub Pages workflow in detail. This guide covers the production
-> launch. After launch, this guide is the one that governs.
+> This guide governs deployment. `README.md` only summarizes it.
 
 ---
 
@@ -135,8 +132,8 @@ Have Mason read every page start to finish, with particular attention to:
 ### 1.6 Confirm the checklist is actually done
 
 ```bash
-# Should print only the SITE.origin TODO, which Part 3 resolves.
-grep -rn "TODO" src/
+# Should print nothing.
+grep -rn "TODO:" src/
 
 # Should print two non-empty strings.
 grep -n "phone:\|phoneDisplay:" src/app/core/practice.config.ts
@@ -152,13 +149,12 @@ grep -rn "general template" src/app/pages/privacy/
 ### 2.1 Pick and purchase
 
 1. Go to [namecheap.com](https://www.namecheap.com) and create an account, or sign in.
-2. Search for the domain you want. **It cannot be `masonkellytherapy.com`** — the client already
-   owns that domain and runs their contact form on it, and every call-to-action on this site links
-   out to it. This site needs a genuinely different domain.
-3. Prefer a **`.com`**. Avoid hyphens and creative TLDs; for a local healthcare practice, `.com`
-   carries real trust weight with exactly the kind of client who hesitates before clicking a link.
-4. Click **Add to Cart**, then **Checkout**.
-5. On the cart page:
+2. Search for **`masonkellytherapist.com`**, the domain chosen for this site. Note the
+   difference from **`masonkellytherapy.com`**: the client already owns that one and runs their
+   contact form on it, and every call-to-action on this site links out to it. The two must stay
+   separate.
+3. Click **Add to Cart**, then **Checkout**.
+4. On the cart page:
    - **Auto-Renew: ON.** A practice losing its domain to an expired credit card is a genuine
      disaster — every backlink and every ranking dies at once, and the domain may be bought out
      from under you.
@@ -168,7 +164,7 @@ grep -rn "general template" src/app/pages/privacy/
      record in Part 5.
    - **Hosting, email, and SSL upsells: skip all of them.** Azure provides hosting and the TLS
      certificate at no cost.
-6. Complete the purchase.
+5. Complete the purchase.
 
 ### 2.2 Clear out Namecheap's default parking records
 
@@ -193,12 +189,13 @@ the records you add in Part 5.
 
 ## Part 3 — Point the code at the real domain
 
-The site is currently hardcoded for a GitHub Pages subfolder. Azure serves from a domain root, so
-two separate groups of settings must change. Do it all in one commit.
+The site was originally hardcoded for a GitHub Pages subfolder. Azure serves from a domain root, so
+two separate groups of settings had to change. **Both are done** (3.1 and 3.2). What's left is to
+build and verify (3.3).
 
 ### 3.1 Remove the `/mason-kelly-therapy/` base path
 
-Three files carry that prefix, and all three must go back to `/`.
+**Already done.** Kept for reference: three files carried that prefix, and all three now use `/`.
 
 **File 1 — `angular.json`.** Delete the `baseHref` line (or set it to `/`):
 
@@ -241,26 +238,22 @@ sed -i "s|/mason-kelly-therapy/fonts/|/fonts/|g" src/styles/_fonts.scss src/inde
 
 ### 3.2 Set the canonical domain
 
-**This section is mandatory.** All three files below currently hold the placeholder
-`https://www.yourdomain.com`, which resolves to nothing. Until you replace it, your canonical
-tags, sitemap, and robots.txt advertise a domain that doesn't exist — and Google will not index the
-site correctly.
+**Already done.** The canonical domain is `https://www.masonkellytherapist.com`, and these three
+files all carry it. They must always agree — your canonical tags, sitemap, and robots.txt are
+generated from them — so if the domain ever changes, update all three together:
 
-All three must agree:
-
-| File | Line | Change to |
+| File | Line | Value |
 | --- | --- | --- |
-| `src/app/core/practice.config.ts` | 19 | `origin: 'https://www.yourdomain.com',` |
-| `scripts/generate-sitemap.mjs` | 9 | `const ORIGIN = 'https://www.yourdomain.com';` |
-| `public/robots.txt` | 4 | `Sitemap: https://www.yourdomain.com/sitemap.xml` |
+| `src/app/core/practice.config.ts` | 19 | `origin: 'https://www.masonkellytherapist.com',` |
+| `scripts/generate-sitemap.mjs` | 9 | `const ORIGIN = 'https://www.masonkellytherapist.com';` |
+| `public/robots.txt` | 4 | `Sitemap: https://www.masonkellytherapist.com/sitemap.xml` |
 
 Leave `CONTACT.contactUrl` (`practice.config.ts:79`) pointing at `https://masonkellytherapy.com`.
-That is the client's separate contact-form site, not this one, so it does **not** change when you
-pick a domain for this site.
+That is the client's separate contact-form site, not this one. The two names differ by only a few
+letters (`therapy` vs `therapist`), so never find-and-replace one with the other.
 
-Decide **now** whether your canonical host is `www.yourdomain.com` or the bare `yourdomain.com`,
-and use it consistently across all three. This guide assumes **`www`**, matching what the code
-already does. Part 5 sets up a redirect so the other one funnels into it.
+The canonical host is **`www`**. Part 5 sets up a redirect so the bare `masonkellytherapist.com`
+funnels into it.
 
 ### 3.3 Build and verify locally
 
@@ -492,8 +485,8 @@ Rebuild and redeploy (step 4.5) to publish it.
 
 ## Part 5 — Connect your domain to Azure
 
-Two hostnames to set up: `www.yourdomain.com` (the canonical one, a simple `CNAME`) and the bare
-`yourdomain.com` (an apex domain, which needs more care).
+Two hostnames to set up: `www.masonkellytherapist.com` (the canonical one, a simple `CNAME`) and the bare
+`masonkellytherapist.com` (an apex domain, which needs more care).
 
 > **Timing:** DNS changes propagate on their own schedule. Namecheap usually takes under 30
 > minutes, but apex changes can take up to 72 hours. If a validation fails, wait and retry rather
@@ -515,24 +508,24 @@ Save with the green checkmark.
 **In Azure** — your Static Web App → **Settings** → **Custom domains** → **+ Add** → **Custom
 domain on other DNS**:
 
-1. Enter `www.yourdomain.com`. Click **Next**.
+1. Enter `www.masonkellytherapist.com`. Click **Next**.
 2. Set **Hostname record type** to **CNAME**.
 3. Click **Add**.
 
 Azure verifies the CNAME resolves, then issues a free TLS certificate. This can take a few minutes
-to a few hours. When the status reads **Ready**, visit `https://www.yourdomain.com` — you should
+to a few hours. When the status reads **Ready**, visit `https://www.masonkellytherapist.com` — you should
 see your site with a valid padlock.
 
 ### 5.2 Add the apex domain
 
-An apex domain (`yourdomain.com`, no subdomain) can't use a plain `CNAME` — that's a DNS rule, not
+An apex domain (`masonkellytherapist.com`, no subdomain) can't use a plain `CNAME` — that's a DNS rule, not
 an Azure limitation. Namecheap's free BasicDNS supports `ALIAS` records, which solve exactly this,
 so you can point the apex directly at Azure.
 
 **Step 1 — prove you own the domain.**
 
 1. In Azure → **Custom domains** → **+ Add** → **Custom domain on other DNS**.
-2. Enter the bare `yourdomain.com` (no `www`). Click **Next**.
+2. Enter the bare `masonkellytherapist.com` (no `www`). Click **Next**.
 3. Set **Hostname record type** to **TXT**.
 4. Click **Generate code** and wait — it takes up to a minute. Copy the generated value.
 5. In Namecheap → Advanced DNS → **Add New Record**:
@@ -563,10 +556,10 @@ In Namecheap → Advanced DNS → **Add New Record**:
 ### 5.3 Make `www` the single canonical host
 
 Both hostnames now serve the site, which is duplicate content. Your code declares
-`https://www.yourdomain.com` as canonical, so make the apex redirect there.
+`https://www.masonkellytherapist.com` as canonical, so make the apex redirect there.
 
-In Azure → **Custom domains**, find `yourdomain.com` (the apex) and use the **"..."** menu to set
-it to redirect to `www.yourdomain.com`.
+In Azure → **Custom domains**, find `masonkellytherapist.com` (the apex) and use the **"..."** menu to set
+it to redirect to `www.masonkellytherapist.com`.
 
 If your Azure plan doesn't offer that option, delete the apex `ALIAS` record in Namecheap and
 replace it with a **URL Redirect Record** instead:
@@ -575,7 +568,7 @@ replace it with a **URL Redirect Record** instead:
 | --- | --- |
 | Type | `URL Redirect Record` |
 | Host | `@` |
-| Value | `https://www.yourdomain.com` |
+| Value | `https://www.masonkellytherapist.com` |
 | Redirect type | `Permanent (301)` |
 
 A 301 is important — it tells Google to pass ranking signals to the `www` version rather than
@@ -585,13 +578,13 @@ treating them as two competing sites.
 
 ```bash
 # The canonical host: expect HTTP/2 200
-curl -sI https://www.yourdomain.com | head -1
+curl -sI https://www.masonkellytherapist.com | head -1
 
 # The apex: expect a 301 whose Location is the www URL
-curl -sI https://yourdomain.com | grep -iE "^(HTTP|location)"
+curl -sI https://masonkellytherapist.com | grep -iE "^(HTTP|location)"
 
 # Certificate should be valid and not self-signed
-curl -sI https://www.yourdomain.com > /dev/null && echo "TLS OK"
+curl -sI https://www.masonkellytherapist.com > /dev/null && echo "TLS OK"
 ```
 
 ---
@@ -683,7 +676,7 @@ server rather than the browser:
 
 ```bash
 # The live HTML must reference the same hashed bundle your build produced.
-curl -s https://www.yourdomain.com | grep -o 'main-[A-Z0-9]*\.js'
+curl -s https://www.masonkellytherapist.com | grep -o 'main-[A-Z0-9]*\.js'
 ls dist/mason-kelly-therapy/browser/main-*.js     # the two hashes should match
 ```
 
@@ -724,7 +717,7 @@ wasted effort.
    > property covers only the exact string you type, which means missing data the moment something
    > redirects.
 
-3. Enter `yourdomain.com` (no `https://`, no `www`). Click **Continue**.
+3. Enter `masonkellytherapist.com` (no `https://`, no `www`). Click **Continue**.
 4. Google shows a TXT record. Copy the value.
 5. In Namecheap → Advanced DNS → **Add New Record**:
 
@@ -749,7 +742,7 @@ wasted effort.
 If it reports errors, fetch the file yourself and confirm the URLs match your real domain:
 
 ```bash
-curl -s https://www.yourdomain.com/sitemap.xml | head -20
+curl -s https://www.masonkellytherapist.com/sitemap.xml | head -20
 ```
 
 A mismatch here means Part 3.2 was missed in `scripts/generate-sitemap.mjs`.
@@ -762,12 +755,12 @@ for your most important pages — Google rate-limits these requests, so don't tr
 For each of the pages below: paste the full URL into the **URL Inspection** bar at the top of
 Search Console, wait for the check, then click **Request Indexing**.
 
-1. `https://www.yourdomain.com/`
-2. `https://www.yourdomain.com/christian-counseling`
-3. `https://www.yourdomain.com/detransition-support`
-4. `https://www.yourdomain.com/about`
-5. `https://www.yourdomain.com/contact`
-6. `https://www.yourdomain.com/fees-insurance`
+1. `https://www.masonkellytherapist.com/`
+2. `https://www.masonkellytherapist.com/christian-counseling`
+3. `https://www.masonkellytherapist.com/detransition-support`
+4. `https://www.masonkellytherapist.com/about`
+5. `https://www.masonkellytherapist.com/contact`
+6. `https://www.masonkellytherapist.com/fees-insurance`
 
 **Expect this to take time.** A brand-new domain typically takes 1–4 weeks to index meaningfully,
 and ranking takes months. This is normal and there is no way to buy your way past it.
@@ -818,8 +811,8 @@ Work through this once the domain is live.
 
 **The site itself**
 
-- [ ] `https://www.yourdomain.com` loads with a valid certificate.
-- [ ] `https://yourdomain.com` 301-redirects to the `www` version.
+- [ ] `https://www.masonkellytherapist.com` loads with a valid certificate.
+- [ ] `https://masonkellytherapist.com` 301-redirects to the `www` version.
 - [ ] Fonts render correctly — serif headings, sans-serif body. Wrong fonts mean a base-path miss.
 - [ ] DevTools → Network shows no 404s on any page.
 - [ ] Every nav link works, including the mobile menu.
@@ -839,8 +832,8 @@ Work through this once the domain is live.
 
 **SEO**
 
-- [ ] `https://www.yourdomain.com/robots.txt` returns your real domain in the `Sitemap:` line.
-- [ ] `https://www.yourdomain.com/sitemap.xml` returns 27 URLs on the real domain.
+- [ ] `https://www.masonkellytherapist.com/robots.txt` returns your real domain in the `Sitemap:` line.
+- [ ] `https://www.masonkellytherapist.com/sitemap.xml` returns 27 URLs on the real domain.
 - [ ] View source on two pages and confirm `<link rel="canonical">` points at the real domain.
 - [ ] Search Console property verified and sitemap submitted.
 
@@ -854,18 +847,16 @@ Work through this once the domain is live.
 
 **Retire the GitHub Pages copy**
 
-Once the real site is live, `matt319940.github.io/mason-kelly-therapy/` is a public duplicate of it.
-The canonical tags now point at your real domain, so Google should consolidate them — but the
-cleanest outcome is to take it down:
+`matt319940.github.io/mason-kelly-therapy/` still serves an old build of the site. Nothing deploys
+there any more, so it will only drift further out of date — and it's a public duplicate of the real
+site. Take it down:
 
 1. On GitHub → repo **Settings** → **Pages** → set **Source** to **None**.
 2. Optionally delete the branch: `git push origin --delete gh-pages`.
 
-Keeping it as a staging preview is possible but awkward: it needs the `/mason-kelly-therapy/` base
-path that [Part 3.1](#31-remove-the-mason-kelly-therapy-base-path) removed, so you can't serve both
-from the same `main` branch without reintroducing that conflict. Now that Azure supports preview
-environments ([Part 6.3](#63-a-safer-habit-preview-first)), those are the better staging tool
-anyway — and they don't depend on GitHub.
+Don't redeploy to it: the current code has no `/mason-kelly-therapy/` base path
+([Part 3.1](#31-remove-the-mason-kelly-therapy-base-path)), so a fresh Pages deploy would render
+without styles or fonts.
 
 **When you eventually remove the project from GitHub**
 
@@ -910,8 +901,8 @@ ls dist/mason-kelly-therapy/browser/index.html
 **Azure custom domain validation keeps failing.**
 DNS hasn't propagated yet. Confirm what the world actually sees:
 ```bash
-nslookup -type=CNAME www.yourdomain.com
-nslookup -type=TXT yourdomain.com
+nslookup -type=CNAME www.masonkellytherapist.com
+nslookup -type=TXT masonkellytherapist.com
 ```
 If those return nothing, wait — apex changes can take up to 72 hours. Also re-check that
 Nameservers is set to **Namecheap BasicDNS**; with Custom DNS selected, the Advanced DNS tab is

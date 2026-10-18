@@ -61,83 +61,22 @@ credentials stay byte-consistent everywhere.
 
 ## Deployment
 
-The live site is published to **GitHub Pages** at
-<https://matt319940.github.io/mason-kelly-therapy/>, served from the **`gh-pages` branch**
-(built output only — never edit that branch by hand).
-
-> **There is no CI workflow.** Pushing to `main` does **not** update the live site. Every
-> deploy is a manual build-and-publish — follow the steps below.
-
-### Deploying an update to GitHub Pages
-
-From `main`, with your source changes committed and pushed:
+Production is **Azure Static Web Apps** at <https://www.masonkellytherapist.com>, deployed by
+hand from a laptop. There is no CI, and nothing in the deploy depends on GitHub. **`DEPLOYMENT.md`
+is the full guide**; the routine update is:
 
 ```bash
-# 1. Build: blog markdown -> prerender all 27 routes -> sitemap.xml
 npm run build
-
-# 2. Verify the build picked up the project base path (see below). This is the #1 failure mode.
-grep -o '<base[^>]*>' dist/mason-kelly-therapy/browser/index.html
-#    expected: <base href="/mason-kelly-therapy/">
-
-# 3. Publish the built output to gh-pages. Force-pushes the branch, adds .nojekyll,
-#    and copies index.html -> 404.html for SPA fallback.
-npx angular-cli-ghpages --dir=dist/mason-kelly-therapy/browser
+grep -o '<base[^>]*>' dist/mason-kelly-therapy/browser/index.html   # expect <base href="/">
+swa deploy dist/mason-kelly-therapy/browser --deployment-token "YOUR_TOKEN" --env production
 ```
 
-Then give GitHub ~1–3 minutes to build and serve the new commit.
+### ⚠️ Root-absolute font paths
 
-Step 2 matters because `dist/` is not cleaned between builds — a leftover build made without
-`baseHref` will look fine locally and deploy a broken site.
-
-### Verifying a deploy
-
-GitHub Pages sends `Cache-Control: max-age=600` on HTML, so **your browser will keep serving
-the old page from cache for up to 10 minutes.** A stale-looking site is almost never a failed
-deploy. Check the server, not the browser:
-
-```bash
-# The live HTML must reference the same hashed bundle the build just produced
-curl -s https://matt319940.github.io/mason-kelly-therapy/ | grep -o 'main-[A-Z0-9]*\.js'
-ls dist/mason-kelly-therapy/browser/main-*.js      # the two hashes must match
-
-# Assets must resolve under the project subpath (expect "200 OK" from both)
-curl -sI https://matt319940.github.io/mason-kelly-therapy/fonts/lora-latin-wght-normal.woff2 | head -1
-curl -sI https://matt319940.github.io/mason-kelly-therapy/ | head -1
-```
-
-To confirm in a browser, hard-reload with `Ctrl+Shift+R` or open a private window.
-
-### ⚠️ The `/mason-kelly-therapy/` base path
-
-Pages serves this site from a **project subpath**, not a domain root, so three files hardcode
-that prefix. All three must stay in sync, or the deploy renders as a blank page or unstyled
-text:
-
-| File | What it holds |
-| --- | --- |
-| `angular.json` | `"baseHref": "/mason-kelly-therapy/"` in the `build` options |
-| `src/index.html` | The two `<link rel="preload">` font `href`s |
-| `src/styles/_fonts.scss` | All four `@font-face` `src: url(...)` paths |
-
-Setting `baseHref` alone is **not** sufficient: root-absolute URLs like `/fonts/…` ignore
-`<base href>` entirely, and CSS `url()` resolves against the stylesheet's own location. That is
-why the last two files must carry the prefix literally.
-
-Note that `sitemap.xml`, `robots.txt`, and every canonical/OG tag emit the **placeholder**
-`https://www.yourdomain.com` (from `SITE.origin`), which resolves to nothing. Set the real domain
-before launch — see `DEPLOYMENT.md` Part 3.2 — and don't submit the sitemap to Search Console while
-the Pages URL is the only live host.
-
-### Moving to the real domain, or another host (Cloudflare Pages / Netlify)
-
-These serve from the domain root, so **remove** the `/mason-kelly-therapy/` prefix from all
-three files above first. Then deploy the static output as-is:
-- **Build command:** `npm run build`
-- **Output directory:** `dist/mason-kelly-therapy/browser`
-- Force HTTPS and a single canonical host (301 `www` ↔ apex).
-- After launch: submit `sitemap.xml` in Google Search Console; create/optimize the Google
-  Business Profile once the verified NAP is set.
+The site serves from the domain root. `src/index.html` (font preloads) and
+`src/styles/_fonts.scss` (`@font-face`) reference `/fonts/…` literally, because neither a
+root-absolute URL nor a CSS `url()` is affected by `<base href>`. If the site ever moves under a
+subpath, those files must change along with `baseHref` in `angular.json`, or fonts break.
 
 ## ⚠️ Pre-launch checklist (data the client must confirm)
 
@@ -147,10 +86,9 @@ These are intentionally left as placeholders/TODOs in `practice.config.ts`:
   `CONTACT.phone` and `CONTACT.phoneDisplay`. (Phone is currently blank and hidden until set;
   `telephone` is omitted from schema while blank.) `CONTACT.email` is intentionally blank —
   enquiries route to `CONTACT.contactUrl` instead.
-- [ ] **Canonical domain** — `SITE.origin` is the placeholder `https://www.yourdomain.com`. Set the
-  real domain (it cannot be `masonkellytherapy.com`, which is the client's separate contact-form
-  site), and keep `ORIGIN` in `scripts/generate-sitemap.mjs` and the URL in `public/robots.txt`
-  in sync.
+- [x] **Canonical domain** — `SITE.origin` is `https://www.masonkellytherapist.com` (not
+  `masonkellytherapy.com`, which is the client's separate contact-form site). Keep `ORIGIN` in
+  `scripts/generate-sitemap.mjs` and the URL in `public/robots.txt` in sync with it.
 - [ ] **Credentials/license** — confirm the LCSW license # and certifications are current and OK
   to publish.
 - [ ] **Insurance panels** — verify the accepted-plan list (`FEES.insurers`) is current.

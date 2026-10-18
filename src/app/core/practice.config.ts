@@ -12,11 +12,11 @@ export const SITE = {
   name: 'Mason L. Kelly, LCSW — Faith-Centered Christian Counseling',
   shortName: 'Mason Kelly, LCSW',
   /**
-   * TODO: set to the new canonical domain once purchased (see DEPLOYMENT.md Part 2).
-   * This must NOT be masonkellytherapy.com — that domain is the client's separate
-   * contact-form site, which every CTA links to via CONTACT.contactUrl below.
+   * Canonical domain. Keep in sync with scripts/generate-sitemap.mjs and public/robots.txt.
+   * NOT masonkellytherapy.com — that is the client's separate contact-form site,
+   * which every CTA links to via CONTACT.contactUrl below.
    */
-  origin: 'https://www.yourdomain.com',
+  origin: 'https://www.masonkellytherapist.com',
   defaultOgImage: '/og-default.svg',
   locale: 'en_US',
   tagline: 'Faith-Centered, Bible-Based Christian Therapy — Online Across Illinois',
