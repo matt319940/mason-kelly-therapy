@@ -190,8 +190,9 @@ the records you add in Part 5.
 ## Part 3 — Point the code at the real domain
 
 The site was originally hardcoded for a GitHub Pages subfolder. Azure serves from a domain root, so
-two separate groups of settings had to change. **Both are done** (3.1 and 3.2). What's left is to
-build and verify (3.3).
+two separate groups of settings had to change. **This whole part is done** — both changes are in
+(3.1, 3.2), the build was verified (3.3), and the Node requirement is recorded (3.4). The steps are
+kept for reference; 3.3's checks are worth rerunning any time you touch paths or the domain.
 
 ### 3.1 Remove the `/mason-kelly-therapy/` base path
 
@@ -299,11 +300,10 @@ confusing error.
 node -v      # must be >= 22.12.0
 ```
 
-Record that requirement in `package.json` so anyone who clones the project gets warned rather than
-puzzled. Add an `engines` block right after `"private": true`:
+**Already done:** `package.json` records the requirement in an `engines` block, so `npm install`
+on an older Node prints an `EBADENGINE` warning instead of leaving the next person puzzled:
 
 ```json
-  "private": true,
   "engines": {
     "node": ">=22.12.0"
   },
