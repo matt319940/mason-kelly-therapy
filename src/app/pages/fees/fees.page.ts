@@ -34,6 +34,7 @@ import { CtaBanner } from '../../shared/cta-banner';
               <tbody>
                 <tr><td>Individual session</td><td>\${{ fees.individual }}</td></tr>
                 <tr><td>Couples session</td><td>\${{ fees.couples }}</td></tr>
+                <tr><td>Family session</td><td>\${{ fees.family }}</td></tr>
                 <tr><td>Support groups (per session)</td><td>\${{ fees.groupMin }}–\${{ fees.groupMax }}</td></tr>
                 <tr><td>Sliding scale</td><td>Available on request</td></tr>
               </tbody>

@@ -67,14 +67,14 @@ export const CONTACT = {
   onlineOnly: true,
   areaServed: 'Illinois',
   /** TODO: confirm the single verified phone (PT profile and old site disagree). */
-  phone: '', // e.g. '+1-773-000-0000' — leave blank until verified
-  phoneDisplay: '', // e.g. '(773) 000-0000'
+  phone: '+1-773-972-3577', // e.g. '+1-773-000-0000' — leave blank until verified
+  phoneDisplay: '(773) 972-3577', // e.g. '(773) 000-0000'
   /**
    * Intentionally blank. Enquiries go through the contact form at `contactUrl`, not email.
    * Every email element in the UI and in JSON-LD is guarded on this being non-empty, so
    * leaving it '' removes them cleanly. Set it only if the practice wants email back.
    */
-  email: '',
+  email: 'masonkellylscw@aol.com',
   /** The client's separate contact-form site. Primary call-to-action target sitewide. */
   contactUrl: 'https://masonkellytherapy.com',
   hours: [
@@ -84,6 +84,7 @@ export const CONTACT = {
 
 export const FEES = {
   individual: 130,
+  family: 160,
   couples: 160,
   groupMin: 20,
   groupMax: 60,
@@ -116,10 +117,10 @@ export const GROUPS: SupportGroup[] = [
   {
     name: 'Sex & Relationship Addiction Group',
     slug: 'sex-relationship-addiction',
-    cadence: 'Third Sunday of each month',
-    day: 'Sunday',
-    start: '13:30',
-    end: '15:00',
+    cadence: 'Third Saturday of each month',
+    day: 'Saturday',
+    start: '10:30',
+    end: '13:00',
     summary:
       'A confidential, faith-centered group for adults working toward recovery from compulsive sexual behavior and relationship patterns.',
   },
@@ -128,8 +129,8 @@ export const GROUPS: SupportGroup[] = [
     slug: 'equanimity-anxiety-depression',
     cadence: 'Every other Monday',
     day: 'Monday',
-    start: '19:30',
-    end: '21:00',
+    start: '15:00',
+    end: '16:30',
     summary:
       'A biweekly support group offering tools, encouragement, and community for those navigating anxiety and depression.',
   },
