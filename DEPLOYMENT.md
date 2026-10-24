@@ -558,11 +558,19 @@ In Namecheap → Advanced DNS → **Add New Record**:
 Both hostnames now serve the site, which is duplicate content. Your code declares
 `https://www.masonkellytherapist.com` as canonical, so make the apex redirect there.
 
-In Azure → **Custom domains**, find `masonkellytherapist.com` (the apex) and use the **"..."** menu to set
-it to redirect to `www.masonkellytherapist.com`.
+Azure has no per-domain redirect setting — there's no edit option on the apex row. Instead, make
+`www` the app's **default domain**, and Azure redirects every other hostname to it:
 
-If your Azure plan doesn't offer that option, delete the apex `ALIAS` record in Namecheap and
-replace it with a **URL Redirect Record** instead:
+1. In Azure → **Custom domains**, select the **`www.masonkellytherapist.com`** row (not the apex).
+2. Click **Set default**.
+3. Refresh the table and confirm `www` is marked **default**.
+
+> **Don't try this with a redirect route in `staticwebapp.config.json`.** Route rules match on the
+> path and HTTP method only, never the hostname, so a rule redirecting to `www` would also fire on
+> `www` itself and loop forever.
+
+If **Set default** isn't available, delete the apex `ALIAS` record in Namecheap and replace it with a
+**URL Redirect Record** instead:
 
 | Field | Value |
 | --- | --- |
