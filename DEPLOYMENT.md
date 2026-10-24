@@ -562,25 +562,21 @@ Azure has no per-domain redirect setting — there's no edit option on the apex 
 `www` the app's **default domain**, and Azure redirects every other hostname to it:
 
 1. In Azure → **Custom domains**, select the **`www.masonkellytherapist.com`** row (not the apex).
-2. Click **Set default**.
+2. Click **Set default**. It's an action for the selected row, not an item in an "..." menu on the
+   apex row.
 3. Refresh the table and confirm `www` is marked **default**.
 
 > **Don't try this with a redirect route in `staticwebapp.config.json`.** Route rules match on the
 > path and HTTP method only, never the hostname, so a rule redirecting to `www` would also fire on
 > `www` itself and loop forever.
 
-If **Set default** isn't available, delete the apex `ALIAS` record in Namecheap and replace it with a
-**URL Redirect Record** instead:
+> **Don't swap the apex `ALIAS` record for a Namecheap URL Redirect Record either.** Namecheap's
+> redirect service has no TLS certificate for your domain, so `https://masonkellytherapist.com`
+> would show visitors a certificate error instead of redirecting.
 
-| Field | Value |
-| --- | --- |
-| Type | `URL Redirect Record` |
-| Host | `@` |
-| Value | `https://www.masonkellytherapist.com` |
-| Redirect type | `Permanent (301)` |
-
-A 301 is important — it tells Google to pass ranking signals to the `www` version rather than
-treating them as two competing sites.
+If **Set default** isn't available, leave the apex as it is. Both hostnames serve the site over
+valid HTTPS, and every page's `<link rel="canonical">` already points at `www`. That's enough for
+Google to treat `www` as the real site and consolidate ranking signals there.
 
 ### 5.4 Verify both hostnames
 
@@ -588,7 +584,7 @@ treating them as two competing sites.
 # The canonical host: expect HTTP/2 200
 curl -sI https://www.masonkellytherapist.com | head -1
 
-# The apex: expect a 301 whose Location is the www URL
+# The apex: expect a 301 whose Location is the www URL (or a 200 if you left it without a redirect)
 curl -sI https://masonkellytherapist.com | grep -iE "^(HTTP|location)"
 
 # Certificate should be valid and not self-signed
@@ -744,7 +740,10 @@ wasted effort.
 ### 7.2 Submit the sitemap
 
 1. In Search Console, open **Sitemaps** in the left sidebar.
-2. Enter `sitemap.xml` in the "Add a new sitemap" box and click **Submit**.
+2. In the "Add a new sitemap" box, enter the **full URL**,
+   `https://www.masonkellytherapist.com/sitemap.xml`, and click **Submit**. A Domain property has no
+   URL prefix to put in front of a bare `sitemap.xml`, so it rejects that as "not a valid sitemap
+   path".
 3. Within a day or so the status should read **Success** with **27 discovered URLs**.
 
 If it reports errors, fetch the file yourself and confirm the URLs match your real domain:
